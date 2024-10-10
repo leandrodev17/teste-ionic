@@ -1,30 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { Subscription, take } from 'rxjs';
-import { IPost } from 'src/app/interfaces/post.interface';
-import { PostService } from 'src/app/services/post/post.service';
-import { Router } from '@angular/router';
-import { IUser } from 'src/app/interfaces/user.interface';
-import { StatesService } from 'src/app/services/states/states.service';
-
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { Subscription, take } from "rxjs";
+import { IPost } from "src/app/interfaces/post.interface";
+import { IUser } from "src/app/interfaces/user.interface";
+import { PostService } from "src/app/services/post/post.service";
+import { StatesService } from "src/app/services/states/states.service";
 
 @Component({
-  selector: 'app-post',
-  templateUrl: './post.page.html',
-  styleUrls: ['./post.page.scss'],
+  selector: "app-post",
+  templateUrl: "./post.page.html",
+  styleUrls: ["./post.page.scss"],
 })
 export class PostPage implements OnInit {
-  constructor(private postService: PostService, private router: Router, private statesService: StatesService) { }
+  constructor(private postService: PostService, private router: Router, private statesService: StatesService) {}
 
   user: IUser = {
-    email: '',
-    nome: '',
-    foto: ''
+    email: "",
+    nome: "",
+    foto: "",
   };
 
   loadingPost: boolean = false;
 
-  userSubscription: Subscription = new Subscription;
-  loadingSubscription: Subscription = new Subscription;
+  userSubscription: Subscription = new Subscription();
+  loadingSubscription: Subscription = new Subscription();
 
   ngOnInit() {
     this.findPosts(0, 10);
@@ -35,12 +34,11 @@ export class PostPage implements OnInit {
 
     this.userSubscription = this.statesService.currentUser$.subscribe((currentUser) => {
       this.user = currentUser ?? {
-        email: '',
-        nome: '',
-        foto: ''
-      };;
+        email: "",
+        nome: "",
+        foto: "",
+      };
     });
-
   }
 
   onDestroy() {
@@ -50,8 +48,7 @@ export class PostPage implements OnInit {
 
   posts: IPost[] = [];
 
-
-  findPosts(start: number, limit: number, event?: any,) {
+  findPosts(start: number, limit: number, event?: any) {
     this.postService
       .findPosts(start, limit)
       .pipe(take(1))
@@ -75,10 +72,10 @@ export class PostPage implements OnInit {
   }
 
   navigateToDetails(post: IPost) {
-    this.router.navigate(['/post-detail'], { state: { post } });
+    this.router.navigate(["/post-detail"], { state: { post } });
   }
 
   navigateToProfile(user: IUser) {
-    this.router.navigate(['/profile'], { state: { user } });
+    this.router.navigate(["/profile"], { state: { user } });
   }
 }
