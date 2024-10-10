@@ -8,6 +8,6 @@ export const environment = {
     storageBucket: "teste-ionic-44c7e.appspot.com",
     messagingSenderId: "455411327750",
     appId: "1:455411327750:web:d566aabe988c7546e9b487"
-
   },
+  hostApiPosts: 'https://jsonplaceholder.typicode.com/posts',
 };

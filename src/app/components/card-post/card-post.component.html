@@ -1,0 +1,20 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>{{ post.titulo }}</ion-card-title>
+    <ion-card-subtitle>{{ post.autor }}</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+    <div>
+
+      <div>
+        {{ isOpen ? post.corpo : post.corpo.substring(0, 100) + (post.corpo.length > 100 ? '...' : '') }}
+      </div>
+
+      <ion-button fill="clear" (click)="openCard(); $event.stopPropagation();">
+        {{ isOpen ? 'Ver menos' : 'Ver mais' }}
+      </ion-button>
+
+    </div>
+  </ion-card-content>
+</ion-card>

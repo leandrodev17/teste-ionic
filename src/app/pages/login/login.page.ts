@@ -1,11 +1,9 @@
 import { NavController } from '@ionic/angular';
 
 import { Component, OnInit } from '@angular/core';
-import "@codetrix-studio/capacitor-google-auth";
-import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import {  UserInterface } from '../../interfaces/user.interface';
-
+import '@codetrix-studio/capacitor-google-auth';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { StatesService } from 'src/app/services/states/states.service';
 
 @Component({
   selector: 'app-login',
@@ -13,19 +11,22 @@ import {  UserInterface } from '../../interfaces/user.interface';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  constructor(
+    private authenticationService: AuthenticationService,
+    private navController: NavController,
+    private statesService: StatesService
+  ) {}
 
-  constructor(private authenticationService: AuthenticationService, private navController: NavController) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   async signInUser() {
-   let userResult = await this.authenticationService.signIn()
+    let userResult = await this.authenticationService.signIn();
 
-   if (userResult != null ) {
-    this.navController.navigateForward("post")  
-   }
+    if (userResult != null) {
+      console.log(userResult);
+      
+      this.statesService.updateCurrentUser(userResult)
+      this.navController.navigateForward('post');
+    }
   }
-
-
 }

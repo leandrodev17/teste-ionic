@@ -7,7 +7,13 @@ const routes: Routes = [
   {
     path: '',
     component: PostPage
+  },
+  
+  {
+    path: 'post-detail',
+    loadChildren: () => import('./post-detail/post-detail.module').then( m => m.PostDetailPageModule)
   }
+
 ];
 
 @NgModule({
