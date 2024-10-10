@@ -1,18 +1,39 @@
 import { Component } from '@angular/core';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import { NavController } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
+
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+
+  constructor(private navCtrl: NavController) {
+    this.initializeApp();
+  }
+
+
   public appPages = [
-    { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/spam', icon: 'warning' },
+    { title: 'Post', url: '/post', icon: 'list' },
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {}
+
+  logoutUser() {
+    this.navCtrl.navigateRoot('/login')
+  }
+
+  initializeApp() {
+    GoogleAuth.initialize(
+      {
+        clientId: environment.clientID,
+        scopes: ['profile', 'email'],
+        grantOfflineAccess: true,
+      }
+    )
+
+  }
+
+
 }
